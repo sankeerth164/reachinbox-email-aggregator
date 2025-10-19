@@ -1,0 +1,367 @@
+{
+  "info": {
+    "name": "Reachinbox Email Aggregator API",
+    "description": "Complete API collection for testing all features of the Reachinbox email aggregator",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/health",
+          "host": ["{{base_url}}"],
+          "path": ["health"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get All Emails",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/emails?page=1&size=20",
+          "host": ["{{base_url}}"],
+          "path": ["api", "emails"],
+          "query": [
+            {
+              "key": "page",
+              "value": "1"
+            },
+            {
+              "key": "size",
+              "value": "20"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Search Emails",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/search?q=meeting&category=Interested&page=1&size=10",
+          "host": ["{{base_url}}"],
+          "path": ["api", "search"],
+          "query": [
+            {
+              "key": "q",
+              "value": "meeting"
+            },
+            {
+              "key": "category",
+              "value": "Interested"
+            },
+            {
+              "key": "page",
+              "value": "1"
+            },
+            {
+              "key": "size",
+              "value": "10"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Advanced Search",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"query\": \"meeting schedule\",\n  \"filters\": {\n    \"from\": \"example.com\",\n    \"hasAttachments\": false\n  },\n  \"dateRange\": {\n    \"from\": \"2024-01-01\",\n    \"to\": \"2024-12-31\"\n  },\n  \"categories\": [\"Interested\", \"Meeting Booked\"],\n  \"pagination\": {\n    \"page\": 1,\n    \"size\": 20\n  },\n  \"sorting\": {\n    \"field\": \"date\",\n    \"order\": \"desc\"\n  }\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/search/advanced",
+          "host": ["{{base_url}}"],
+          "path": ["api", "search", "advanced"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Email by ID",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/emails/{{email_id}}",
+          "host": ["{{base_url}}"],
+          "path": ["api", "emails", "{{email_id}}"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Emails by Account",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/emails/account/{{email_account}}",
+          "host": ["{{base_url}}"],
+          "path": ["api", "emails", "account", "{{email_account}}"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Email Statistics",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/emails/stats/overview",
+          "host": ["{{base_url}}"],
+          "path": ["api", "emails", "stats", "overview"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Categories",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/emails/stats/categories",
+          "host": ["{{base_url}}"],
+          "path": ["api", "emails", "stats", "categories"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Folders",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/emails/stats/folders",
+          "host": ["{{base_url}}"],
+          "path": ["api", "emails", "stats", "folders"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update Email Category",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"category\": \"Interested\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/emails/{{email_id}}/category",
+          "host": ["{{base_url}}"],
+          "path": ["api", "emails", "{{email_id}}", "category"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete Email",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/emails/{{email_id}}",
+          "host": ["{{base_url}}"],
+          "path": ["api", "emails", "{{email_id}}"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "AI - Categorize Single Email",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"id\": \"test-email-123\",\n  \"from\": \"john.doe@example.com\",\n  \"to\": \"user@company.com\",\n  \"subject\": \"Meeting Request - Product Demo\",\n  \"text\": \"Hi there! I would love to schedule a product demo for next week. Are you available on Tuesday or Wednesday? Looking forward to showing you our new features.\",\n  \"date\": \"2024-01-15T10:00:00Z\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/ai/categorize",
+          "host": ["{{base_url}}"],
+          "path": ["api", "ai", "categorize"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "AI - Batch Categorize Emails",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"emails\": [\n    {\n      \"id\": \"email-1\",\n      \"from\": \"meeting@example.com\",\n      \"to\": \"user@company.com\",\n      \"subject\": \"Meeting Confirmation\",\n      \"text\": \"Your meeting has been confirmed for tomorrow at 2 PM.\",\n      \"date\": \"2024-01-15T10:00:00Z\"\n    },\n    {\n      \"id\": \"email-2\",\n      \"from\": \"spam@fake.com\",\n      \"to\": \"user@company.com\",\n      \"subject\": \"Win $1000 Now!\",\n      \"text\": \"Click here to claim your prize!\",\n      \"date\": \"2024-01-15T11:00:00Z\"\n    }\n  ]\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/ai/categorize/batch",
+          "host": ["{{base_url}}"],
+          "path": ["api", "ai", "categorize", "batch"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "AI - Generate Suggested Reply",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": {\n    \"id\": \"email-123\",\n    \"from\": \"recruiter@company.com\",\n    \"to\": \"candidate@example.com\",\n    \"subject\": \"Interview Invitation\",\n    \"text\": \"Hi! Your resume has been shortlisted. When will be a good time for you to attend the technical interview?\",\n    \"date\": \"2024-01-15T10:00:00Z\"\n  },\n  \"trainingData\": \"I am applying for a job position. If the lead is interested, share the meeting booking link: https://cal.com/example\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/ai/reply/suggest",
+          "host": ["{{base_url}}"],
+          "path": ["api", "ai", "reply", "suggest"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "AI - Get Available Categories",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/ai/categories",
+          "host": ["{{base_url}}"],
+          "path": ["api", "ai", "categories"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "AI - Get Categorization Stats",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/ai/stats",
+          "host": ["{{base_url}}"],
+          "path": ["api", "ai", "stats"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "AI - Test AI Service",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/ai/test",
+          "host": ["{{base_url}}"],
+          "path": ["api", "ai", "test"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Search by Field",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/search/by-field?field=from&value=example.com&page=1&size=10",
+          "host": ["{{base_url}}"],
+          "path": ["api", "search", "by-field"],
+          "query": [
+            {
+              "key": "field",
+              "value": "from"
+            },
+            {
+              "key": "value",
+              "value": "example.com"
+            },
+            {
+              "key": "page",
+              "value": "1"
+            },
+            {
+              "key": "size",
+              "value": "10"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Search Suggestions",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/search/suggestions?q=meeting",
+          "host": ["{{base_url}}"],
+          "path": ["api", "search", "suggestions"],
+          "query": [
+            {
+              "key": "q",
+              "value": "meeting"
+            }
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:3000"
+    },
+    {
+      "key": "email_id",
+      "value": "test-email-123"
+    },
+    {
+      "key": "email_account",
+      "value": "user@gmail.com"
+    }
+  ]
+}
